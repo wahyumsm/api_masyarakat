@@ -1,0 +1,70 @@
+###
+curl -X POST http://localhost:5000/loginuser \
+     -H "Content-Type: application/json" \
+     -d '{"username": "rafa", "password": "rafa"}'
+
+###
+POST http://localhost:5000/api_siswa
+Content-Type: application/json
+
+{
+    "nama": "John Doe",
+    "alamat": "Jl. Contoh No. 123",
+    "status": "Aktif"
+}
+###
+curl -X POST http://localhost:5000/register \
+     -H "Content-Type: application/json" \
+     -d '{"username": "rafa", "password": "rafa", "full_name": "rafa azhary", "profile_picture_url": "https://awsimages.detik.net.id/community/media/visual/2018/03/03/39f24229-6f26-4a17-aa92-44c3bd3dae9e_43.jpeg?w=600&q=90"}'
+
+###
+GET http://localhost:5000/api_siswa
+###
+GET http://localhost:5000/userdetails
+
+
+PUT http://localhost:5000/api_siswa
+Content-Type: application/json
+
+{
+    "nama": "John Doe",
+    "alamat": "Jl. Contoh No. 123",
+    "status": "Aktif"
+}
+
+
+
+
+//API KLIK BELANJA APLIKASI 
+###
+GET http://localhost:5000/dataproduk
+
+###
+POST http://localhost:5000/dataproduk
+Content-Type: application/json
+
+{
+    "namaproduk": "John Doe",
+    "kategori": "Jl. Contoh No. 123",
+    "harga": "Aktif",
+    "stok":"10 buah",
+    "status":"aktif"
+}
+
+###
+PUT http://localhost:5000/dataproduk/12
+Content-Type: application/json
+
+{
+    "namaproduk": "John Doe",
+    "kategori": "Jl. Contoh No. 123",
+    "harga": "Aktif",
+    "stok": "10 buah",
+    "status": "aktif"
+}
+###
+http://localhost:5000/dataproduk?page=2&limit=5
+
+///MASUKKAN PAYLOAD USERNAME PASSWORD DAPATI  DULU TOKENNYA
+
+# {"username": "wahyu", "password": "wahyu"}' 
