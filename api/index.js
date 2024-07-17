@@ -4,7 +4,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const client = require("../koneksi");
+const client = require("./koneksi");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -119,7 +119,7 @@ app.get("/userdetails", authenticateToken, async (req, res) => {
 });
 
 // Ambil data siswa
-app.get("/api_siswa", authenticateToken, (req, res) => {
+app.get("/api_siswa", (req, res) => {
   client.query("SELECT * FROM api_siswa", (err, result) => {
     if (err) {
       console.error("Error executing query:", err);
@@ -130,7 +130,7 @@ app.get("/api_siswa", authenticateToken, (req, res) => {
   });
 });
 
-app.post("/api_siswa", authenticateToken, async (req, res) => {
+app.post("/api_siswa", async (req, res) => {
   try {
     const { nama, alamat, status } = req.body;
     const query =
@@ -143,7 +143,7 @@ app.post("/api_siswa", authenticateToken, async (req, res) => {
   }
 });
 
-app.put("/api_siswa/:id", authenticateToken, async (req, res) => {
+app.put("/api_siswa/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { nama, alamat, status } = req.body;
@@ -157,7 +157,7 @@ app.put("/api_siswa/:id", authenticateToken, async (req, res) => {
   }
 });
 
-app.delete("/api_siswa/:id", authenticateToken, async (req, res) => {
+app.delete("/api_siswa/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const query = "DELETE FROM api_siswa WHERE id = $1";
@@ -225,7 +225,7 @@ app.put("/dataproduk/:id", authenticateToken, async (req, res) => {
   }
 });
 
-app.get("/dataproduk/:id", async (req, res) => {
+app.get("/dataproduk/:id", authenticateToken, async (req, res) => {
   try {
     const { id } = req.params;
     const query = "SELECT * FROM dataproduk WHERE id = $1";
@@ -243,7 +243,7 @@ app.get("/dataproduk/:id", async (req, res) => {
 });
 
 // API untuk pagination
-app.get("/dataproduk", async (req, res) => {
+app.get("/dataproduk", authenticateToken, async (req, res) => {
   const { page = 1, limit = 5 } = req.query;
   const parsedPage = parseInt(page, 10);
   const parsedLimit = parseInt(limit, 10);
