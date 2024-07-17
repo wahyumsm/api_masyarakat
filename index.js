@@ -24,7 +24,7 @@ function authenticateToken(req, res, next) {
       .json({ message: "Akses ditolak karena token tidak ada" });
 
   jwt.verify(token, secretKey, (err, user) => {
-    if (err) return res.status(403).json({ message: "Token tidak valid" });
+    if (err) return res.status(403).json({ message: "Token tidak Bener" });
     req.user = user;
     next();
   });
@@ -240,13 +240,17 @@ app.get("/dataproduk/:id", authenticateToken, async (req, res) => {
 });
 
 // API UNTUK PAGINATION
+
 app.get("/dataproduk", authenticateToken, async (req, res) => {
   const { page = 1, limit = 5 } = req.query;
-  const offset = (page - 1) * limit;
+  const parsedPage = parseInt(page, 10);
+  const parsedLimit = parseInt(limit, 10);
+
+  const offset = (parsedPage - 1) * parsedLimit;
 
   try {
     const query = "SELECT * FROM dataproduk LIMIT $1 OFFSET $2";
-    const result = await client.query(query, [limit, offset]);
+    const result = await client.query(query, [parsedLimit, offset]);
 
     const countQuery = "SELECT COUNT(*) FROM dataproduk";
     const countResult = await client.query(countQuery);

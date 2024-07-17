@@ -63,7 +63,9 @@ Content-Type: application/json
     "status": "aktif"
 }
 ###
-http://localhost:5000/dataproduk?page=2&limit=5
+
+GET http://localhost:5000/dataproduk?page=1&limit=5
+
 
 
 
