@@ -194,7 +194,7 @@ app.post("/dataproduk", async (req, res) => {
   }
 });
 
-app.delete("/dataproduk/:id", authenticateToken, async (req, res) => {
+app.delete("/dataproduk/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const query = "DELETE FROM dataproduk WHERE id = $1";
@@ -225,7 +225,7 @@ app.put("/dataproduk/:id", authenticateToken, async (req, res) => {
   }
 });
 
-app.get("/dataproduk/:id", authenticateToken, async (req, res) => {
+app.get("/dataproduk/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const query = "SELECT * FROM dataproduk WHERE id = $1";
@@ -243,7 +243,7 @@ app.get("/dataproduk/:id", authenticateToken, async (req, res) => {
 });
 
 // API untuk pagination
-app.get("/dataproduk", authenticateToken, async (req, res) => {
+app.get("/dataproduk", async (req, res) => {
   const { page = 1, limit = 5 } = req.query;
   const parsedPage = parseInt(page, 10);
   const parsedLimit = parseInt(limit, 10);
