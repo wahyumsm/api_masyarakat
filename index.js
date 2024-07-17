@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -6,13 +7,13 @@ const jwt = require("jsonwebtoken");
 const client = require("./koneksi");
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const secretKey = "your_secret_key";
+const secretKey = process.env.SECRET_KEY || "your_secret_key";
 
 // Middleware autentikasi
 function authenticateToken(req, res, next) {
@@ -30,7 +31,7 @@ function authenticateToken(req, res, next) {
   });
 }
 
-//  untuk login
+// Untuk login
 app.post("/loginuser", async (req, res) => {
   const { username, password } = req.body;
 
@@ -73,7 +74,8 @@ app.post("/loginuser", async (req, res) => {
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 });
-//  untuk register AKUN
+
+// Untuk register akun
 app.post("/register", async (req, res) => {
   const { username, password, full_name, profile_picture_url } = req.body;
 
@@ -116,7 +118,7 @@ app.get("/userdetails", authenticateToken, async (req, res) => {
   }
 });
 
-// INI AMBIL DATA SISWA
+// Ambil data siswa
 app.get("/api_siswa", authenticateToken, (req, res) => {
   client.query("SELECT * FROM api_siswa", (err, result) => {
     if (err) {
@@ -167,8 +169,7 @@ app.delete("/api_siswa/:id", authenticateToken, async (req, res) => {
   }
 });
 
-// INI AMBIL DATA PRODUK APLIKASI KLIK BELANJA
-
+// Ambil data produk aplikasi klik belanja
 app.get("/dataproduk", authenticateToken, (req, res) => {
   client.query("SELECT * FROM dataproduk", (err, result) => {
     if (err) {
@@ -184,7 +185,7 @@ app.post("/dataproduk", async (req, res) => {
   try {
     const { namaproduk, kategori, harga, stok, status } = req.body;
     const query =
-      "INSERT INTO dataproduk (namaproduk, kategori, harga,stok,status) VALUES ($1, $2, $3, $4, $5)";
+      "INSERT INTO dataproduk (namaproduk, kategori, harga, stok, status) VALUES ($1, $2, $3, $4, $5)";
     await client.query(query, [namaproduk, kategori, harga, stok, status]);
     res.status(201).json({ message: "Data berhasil ditambahkan" });
   } catch (error) {
@@ -192,6 +193,7 @@ app.post("/dataproduk", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
+
 app.delete("/dataproduk/:id", authenticateToken, async (req, res) => {
   try {
     const { id } = req.params;
@@ -203,6 +205,7 @@ app.delete("/dataproduk/:id", authenticateToken, async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
+
 app.put("/dataproduk/:id", authenticateToken, async (req, res) => {
   try {
     const { id } = req.params;
@@ -239,8 +242,7 @@ app.get("/dataproduk/:id", authenticateToken, async (req, res) => {
   }
 });
 
-// API UNTUK PAGINATION
-
+// API untuk pagination
 app.get("/dataproduk", authenticateToken, async (req, res) => {
   const { page = 1, limit = 5 } = req.query;
   const parsedPage = parseInt(page, 10);
