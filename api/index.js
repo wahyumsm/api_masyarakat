@@ -119,7 +119,7 @@ app.get("/userdetails", authenticateToken, async (req, res) => {
 });
 
 // Ambil data siswa
-app.get("/api_siswa", (req, res) => {
+app.get("/api_siswa", authenticateToken, (req, res) => {
   client.query("SELECT * FROM api_siswa", (err, result) => {
     if (err) {
       console.error("Error executing query:", err);
@@ -130,7 +130,7 @@ app.get("/api_siswa", (req, res) => {
   });
 });
 
-app.post("/api_siswa", async (req, res) => {
+app.post("/api_siswa", authenticateToken, async (req, res) => {
   try {
     const { nama, alamat, status } = req.body;
     const query =
@@ -143,7 +143,7 @@ app.post("/api_siswa", async (req, res) => {
   }
 });
 
-app.put("/api_siswa/:id", async (req, res) => {
+app.put("/api_siswa/:id", authenticateToken, async (req, res) => {
   try {
     const { id } = req.params;
     const { nama, alamat, status } = req.body;
@@ -157,7 +157,7 @@ app.put("/api_siswa/:id", async (req, res) => {
   }
 });
 
-app.delete("/api_siswa/:id", async (req, res) => {
+app.delete("/api_siswa/:id", authenticateToken, async (req, res) => {
   try {
     const { id } = req.params;
     const query = "DELETE FROM api_siswa WHERE id = $1";
@@ -170,7 +170,7 @@ app.delete("/api_siswa/:id", async (req, res) => {
 });
 
 // Ambil data produk aplikasi klik belanja
-app.get("/dataproduk", (req, res) => {
+app.get("/dataproduk", authenticateToken, (req, res) => {
   client.query("SELECT * FROM dataproduk", (err, result) => {
     if (err) {
       console.error("Error executing query:", err);
@@ -194,7 +194,7 @@ app.post("/dataproduk", async (req, res) => {
   }
 });
 
-app.delete("/dataproduk/:id", async (req, res) => {
+app.delete("/dataproduk/:id", authenticateToken, async (req, res) => {
   try {
     const { id } = req.params;
     const query = "DELETE FROM dataproduk WHERE id = $1";
