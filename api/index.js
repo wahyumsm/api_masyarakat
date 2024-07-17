@@ -170,7 +170,7 @@ app.delete("/api_siswa/:id", authenticateToken, async (req, res) => {
 });
 
 // Ambil data produk aplikasi klik belanja
-app.get("/dataproduk", authenticateToken, (req, res) => {
+app.get("/dataproduk", (req, res) => {
   client.query("SELECT * FROM dataproduk", (err, result) => {
     if (err) {
       console.error("Error executing query:", err);
