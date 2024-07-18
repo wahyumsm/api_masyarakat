@@ -4,8 +4,8 @@
   "description": "PROSES CRUD API NODE JS FRAMEWORK EXPRESS JS DATA API DAN DATA ORANG TUASISWA\r #\u0000 \u0000a\u0000p\u0000i\u0000_\u0000s\u0000i\u0000s\u0000w\u0000a\u0000\r\u0000 \u0000#\u0000 \u0000a\u0000p\u0000i\u0000_\u0000s\u0000i\u0000s\u0000w\u0000a\u0000\r\u0000 \u0000",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node index.js",
+    "build": "echo 'No build necessary for this project'"
   },
   "author": "",
   "license": "ISC",
