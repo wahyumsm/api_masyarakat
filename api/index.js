@@ -34,7 +34,6 @@ function authenticateToken(req, res, next) {
 // Untuk login
 app.post("/loginuser", async (req, res) => {
   const { username, password } = req.body;
-
   try {
     const query = "SELECT * FROM users WHERE username = $1";
     const result = await client.query(query, [username]);
